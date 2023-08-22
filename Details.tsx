@@ -4,7 +4,9 @@ import {View, Text, Image, StyleSheet, ScrollView, Button} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {increment} from './bookSlice';
 
+
 const Details = ({route}: {route: any}) => {
+  
   const dispatch = useDispatch();
   const handleAdd = (book: any) => {
     dispatch(increment(book));
@@ -28,12 +30,16 @@ const Details = ({route}: {route: any}) => {
   const {book} = route.params;
 
   useEffect(() => {
+   
     axios
       .get(`https://api.itbook.store/1.0/books/${book.isbn13}`)
       .then(response => {
         setBooks(response.data);
       });
-  });
+      
+     
+      
+  },[]);
   return (
     <ScrollView style={{backgroundColor: '#0A5F52'}}>
       <View style={styles.container}>
@@ -56,7 +62,8 @@ const Details = ({route}: {route: any}) => {
           Price: {book.price}
         </Text>
 
-        <Text
+
+       <Text
           style={{
             fontSize: 15,
             marginHorizontal: 8,

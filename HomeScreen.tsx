@@ -7,7 +7,7 @@ import {BackHandler, Alert} from 'react-native';
 import {useEffect} from 'react';
 import {useAuth0} from 'react-native-auth0';
 
-//I'm going to make changee..........................
+
 
 const tab = createBottomTabNavigator();
 
@@ -15,10 +15,10 @@ const HomeScreen = ({navigation}: {navigation: any}) => {
   const {user} = useAuth0();
   useEffect(() => {
     const backAction = () => {
-      // if (navigation.getState().index) {
-      //   return false;
-      // }
-      // console.warn(navigation.getState().index)
+      if (navigation.getState().index<1) {
+        return false;
+      }
+    
       Alert.alert(
         'Exit App',
         'Are you sure you want to exit?',

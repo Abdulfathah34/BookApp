@@ -5,7 +5,6 @@ import {
   Image,
   ScrollView,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
@@ -71,7 +70,7 @@ const Bookmark = () => {
             return (
               <View
                 style={{display: 'flex', alignItems: 'center', gap: 10}}
-                key={book.id}>
+                key={item.id}>
                 <Image
                   style={{width: 200, height: 200}}
                   source={{uri: book.image}}

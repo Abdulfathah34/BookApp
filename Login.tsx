@@ -10,6 +10,11 @@ import {
 } from 'react-native';
 import {useAuth0, Auth0Provider} from 'react-native-auth0';
 
+
+//just checking
+
+
+
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
