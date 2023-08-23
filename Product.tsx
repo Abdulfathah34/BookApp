@@ -85,16 +85,16 @@ const Product = ({navigation}: {navigation: any}) => {
           style={{
            
             position: 'absolute',
-            right: 15,
-            top: 260,
+            right: 25,
+            top: 250,
            
             zIndex:10
           }}
           onPress={() => navigation.navigate('Search')}>
           <Image
             style={{
-              width: 25,
-              height: 25,
+              width: 35,
+              height: 35,
             }}
             source={{
               uri: 'https://cdn-icons-png.flaticon.com/512/954/954591.png',

@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {Image, ScrollView, Text, TextInput, View} from 'react-native';
+import {Image, ScrollView, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import axios from 'axios';
 
-const Search = () => {
+const Search = ({navigation}: {navigation: any}) => {
   interface Book {
     title: string;
     subtitle: string;
@@ -30,7 +30,7 @@ const Search = () => {
         <TextInput
           value={input}
           onChangeText={text => setInput(text)}
-          style={{fontSize: 15,color: '#e2fcf8',backgroundColor:'#e2fcf8'}}
+          style={{fontSize: 15,color: 'black',backgroundColor:'#e2fcf8'}}
           placeholder="search your book"></TextInput>
 
         <ScrollView>
@@ -38,20 +38,28 @@ const Search = () => {
             if (input === '') {
               return (
                 <ScrollView style={{marginTop:10}}>
+                  <TouchableOpacity  onPress={() =>
+                  navigation.navigate('Details', {book: item})}>
                   <Text style={{fontSize:18,fontWeight:'bold',color: '#e2fcf8'}}>{item.title}</Text>
+                  </TouchableOpacity>
                   <Text style={{borderColor:'white',borderWidth:1,height:1}}/>
                 </ScrollView>
               );
             }
             if (item.title.includes(input)) {
               return (
-                <View style={{}}>
+                <TouchableOpacity  onPress={() =>
+                  navigation.navigate('Details', {book: item})
+                }>
+                <ScrollView style={{display:'flex',flexDirection:'row'}}>
                   <Image
                     style={{width: 100, height: 100}}
                     source={{uri: item.image}}
                   />
-                  <Text style={{color: '#e2fcf8'}}>{item.title}</Text>
-                </View>
+                  <Text style={{color: '#e2fcf8',paddingVertical:30}}>{item.title}</Text>
+                  <Text style={{borderColor:'white',borderWidth:1,height:1,width:500}}/>
+                </ScrollView>
+                </TouchableOpacity>
               );
             }
           })}
