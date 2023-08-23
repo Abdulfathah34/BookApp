@@ -48,9 +48,9 @@ const Product = ({navigation}: {navigation: any}) => {
   }
   const [booksug, setBookSug] = useState<Book[]>([]);
   const [books, setBooks] = useState<Book[]>([]);
-  const [isLoading,setIsLoading]= useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
-    setIsLoading(true)
+    setIsLoading(true);
     let apiUrl = 'https://api.itbook.store/1.0/new';
 
     axios
@@ -60,11 +60,11 @@ const Product = ({navigation}: {navigation: any}) => {
         const newSug: Book[] = response.data.books.slice(3, 6);
         setBooks(newBooks);
         setBookSug(newSug);
-        setIsLoading(false)
+        setIsLoading(false);
       })
       .catch(e => {
         console.warn('error', e);
-        setIsLoading(false)
+        setIsLoading(false);
       });
   }, []);
 
@@ -77,35 +77,65 @@ const Product = ({navigation}: {navigation: any}) => {
             fontSize: 20,
             fontWeight: 'bold',
             paddingLeft: 10,
+            position: 'relative',
           }}>
           Recommended
         </Text>
-        <ScrollView horizontal={true} persistentScrollbar={true} style={{margin: 5}}>
+        <TouchableOpacity
+          style={{
+           
+            position: 'absolute',
+            right: 15,
+            top: 260,
+           
+            zIndex:10
+          }}
+          onPress={() => navigation.navigate('Search')}>
+          <Image
+            style={{
+              width: 25,
+              height: 25,
+            }}
+            source={{
+              uri: 'https://cdn-icons-png.flaticon.com/512/954/954591.png',
+            }}></Image>
+        </TouchableOpacity>
+
+        <ScrollView
+          horizontal={true}
+          persistentScrollbar={true}
+          style={{margin: 5}}>
           <View style={{display: 'flex', flexDirection: 'column'}}>
             <View style={{display: 'flex', flexDirection: 'row', gap: 8}}>
-              {isLoading && <ActivityIndicator style={{height:220,alignItems:'center'}} size="large" color={'white'} />}
-              {!isLoading && books.slice(3, 7).map(book => {
-                return (
-                  <TouchableOpacity
-                    onPress={() =>
-                      navigation.navigate('Details', {book: book})
-                    }>
-                    <Image
-                      style={{
-                        width: 180,
-                        height: 220,
-                        marginBottom: 1,
-                        objectFit: 'fill',
-                        borderWidth: 1,
-                        // borderColor: 'white',
-                        borderRadius: 10,
-                      }}
-                      source={{uri: book.image}}
-                    />
-                  </TouchableOpacity>
-
-                );
-              })}
+              {isLoading && (
+                <ActivityIndicator
+                  style={{height: 220, alignItems: 'center'}}
+                  size="large"
+                  color={'white'}
+                />
+              )}
+              {!isLoading &&
+                books.slice(3, 7).map(book => {
+                  return (
+                    <TouchableOpacity
+                      onPress={() =>
+                        navigation.navigate('Details', {book: book})
+                      }>
+                      <Image
+                        style={{
+                          width: 180,
+                          height: 220,
+                          marginBottom: 1,
+                          objectFit: 'fill',
+                          borderWidth: 1,
+                          // borderColor: 'white',
+                          borderRadius: 10,
+                        }}
+                        source={{uri: book.image}}
+                      />
+                    </TouchableOpacity>
+                  );
+                })}
             </View>
           </View>
         </ScrollView>
@@ -118,36 +148,44 @@ const Product = ({navigation}: {navigation: any}) => {
           }}>
           All Books
         </Text>
-        {isLoading && <ActivityIndicator style={{ height:220,alignItems:'center'}} size="large" color={'white'} />}
-       {!isLoading&& <FlatList
-          data={books}
-          numColumns={2}
-          renderItem={({item}) => (
-            <View style={styles.row}>
-              <TouchableOpacity
-                onPress={() => navigation.navigate('Details', {book: item})}>
-                <View>
+        {isLoading && (
+          <ActivityIndicator
+            style={{height: 220, alignItems: 'center'}}
+            size="large"
+            color={'white'}
+          />
+        )}
+        {!isLoading && (
+          <FlatList
+            data={books}
+            numColumns={2}
+            renderItem={({item}) => (
+              <View style={styles.row}>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('Details', {book: item})}>
                   <View>
-                    <Image
-                      key={item.isbn13}
-                      source={{uri: item.image}}
-                      style={styles.image}
-                    />
+                    <View>
+                      <Image
+                        key={item.isbn13}
+                        source={{uri: item.image}}
+                        style={styles.image}
+                      />
+                    </View>
+                    <Text
+                      style={{
+                        width: 160,
+                        margin: 5,
+                        marginLeft: 10,
+                        color: 'white',
+                      }}>
+                      {item.title}
+                    </Text>
                   </View>
-                  <Text
-                    style={{
-                      width: 160,
-                      margin: 5,
-                      marginLeft: 10,
-                      color: 'white',
-                    }}>
-                    {item.title}
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-          )}
-        />}
+                </TouchableOpacity>
+              </View>
+            )}
+          />
+        )}
       </ScrollView>
     </View>
   );
