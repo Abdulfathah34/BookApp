@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Button,
   Image,
@@ -9,6 +9,8 @@ import {
   View,
 } from 'react-native';
 import {useAuth0, Auth0Provider} from 'react-native-auth0';
+import SplashScreen from 'react-native-splash-screen';
+
 
 
 //just checking
@@ -41,6 +43,10 @@ const styles = StyleSheet.create({
 });
 
 const Login = ({navigation}: {navigation: any}) => {
+
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
   const {authorize, user} = useAuth0();
   const onLogin = async () => {
     try {
